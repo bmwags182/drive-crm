@@ -23,7 +23,7 @@ class Client {
      */
     public function __construct($id = null) {
         $this->id = $id;
-        if(!is_null($this->id) && $this->id > 0) {
+        if (!is_null($this->id) && $this->id > 0) {
             $this->read();
         } else {
             $user = new User($_SESSION['userid']);
@@ -88,7 +88,7 @@ class Client {
     public function update($data) {
         $userid = $_SESSION['userid'];
         $db = new Database();
-        if(!$this->user_can_edit($userid)) {
+        if (!$this->user_can_edit($userid)) {
             die("You can't edit that client.");
         }
 
@@ -113,14 +113,14 @@ class Client {
     public function delete() {
         $userid = $_SESSION['userid'];
         $db = new Database();
-        if(!$this->user_can_delete($userid)) {
+        if (!$this->user_can_delete($userid)) {
             die("You cannot delete clients.");
         }
 
         $query = "DELETE FROM clients WHERE id = :id";
         $db->query($query);
         $db->bind(':id', $this->id);
-        if(!$this->read()) {
+        if (!$this->read()) {
             return true;
         }    
         return false;
@@ -162,7 +162,7 @@ class Client {
      */
     public function user_can_edit($userid) {
         $user = new User($userid);
-        if($user->is_admin() || ($user->pod == $this->pod && $user->level >= 3)) {
+        if ($user->is_admin() || ($user->pod == $this->pod && $user->level >= 3)) {
             return true;
         } else {
             return false;
@@ -177,7 +177,7 @@ class Client {
      */
     public function user_can_delete($userid) {
         $user = new User($userid);
-        if($user->is_admin() || ($user->level >= 3 && $user->pod == $this->pod)) {
+        if ($user->is_admin() || ($user->level >= 3 && $user->pod == $this->pod)) {
             return true;
         } else {
             return false;

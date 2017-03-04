@@ -22,7 +22,7 @@ class Account {
      */
     public function __construct($id = null) {
         $this->id = $id;
-        if(!is_null($this->id) && $this->id > 0) {
+        if (!is_null($this->id) && $this->id > 0) {
             $this->read();
         } else {
             // No account selected
@@ -120,7 +120,7 @@ class Account {
         $query = "DELETE FROM accounts WHERE id = :id";
         $db->query($query);
         $db->bind(':id', $this->id);
-        if(!$this->read()) {
+        if (!$this->read()) {
             return true;
         }    
         return false;

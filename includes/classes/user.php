@@ -24,7 +24,7 @@ class User {
      */
     public function __construct($id = null) {
         $this->id = $id;
-        if(!is_null($this->id) && $this->id > 0) {
+        if (!is_null($this->id) && $this->id > 0) {
             $this->get_data();
         }
     }
@@ -40,7 +40,7 @@ class User {
      * @param  string   $username   username for user
      * @param  string   $password   user's password
      * @param  int      $pod        which pod the user belongs to
-     * @param  int      $office     employees home office
+     * @param  int      $office     employee's home office
      */
     public function create($level, $title, $office, $pod, $first_name, $last_name, $email, $username, $password) {
         $password = encrypt_string($password);
@@ -64,6 +64,10 @@ class User {
     }
 
 
+    /**
+     * get user information
+     * @return array  information for the user
+     */
     public function read() {
         $db = new Database();
         $query = "SELECT * FROM users WHERE id = :id";
@@ -82,9 +86,14 @@ class User {
     }
 
 
+    /**
+     * update user information in the database
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public function update($data) {
         $old_data = $this->read();
-        if(!$this->can_edit($id)) {
+        if (!$this->can_edit($id)) {
             die("You can't edit that user.");
         }
         $db = new Database();
@@ -110,29 +119,44 @@ class User {
         $this->read();
     }
 
-
+    /**
+     * get client list for user
+     * @return array  list of clients user has access to
+     */
     public function get_clients() {
         $db = new Databse();
-        $query = "SELECT * FROM clients WHERE pod = :pod AND office = :office";
-        $db->query($query);
-        $db->bind(':pod', $this->pod);
+        $user = new User($_SESSION['userid']);
+        if ($user->is_admin()) {
+            $query = "SELECT * FROM clients";
+            $db->query($query);
+        } else {
+            $query = "SELECT * FROM clients WHERE pod = :pod AND office = :office";
+            $db->query($query);
+            $db->bind(':pod', $this->pod);
+            $db->bind(':office', $this->office);
+        }
+        
         $rows = $db->result_set();
         return $rows;
     }
 
 
+    /**
+     * delete user from database
+     * @return boolean  returns true if user is deleted
+     */
     public function delete() {
         $userid = $_SESSION['userid'];
 
-        if(!$this->user_can_delete($userid) {
+        if (!$this->user_can_delete($userid) {
             die("You can't kill this person.");
         }
         $db = new Database();
         $query = "DELETE FROM users WHERE id = :id";
         $db->query($query);
-        $db->bind(':id', $del_user);
+        $db->bind(':id', $this->id);
         $db->execute();
-        if (!$del_user->read()) {
+        if (!$this->read()) {
             return true;
         } else {
             return false;
@@ -140,6 +164,11 @@ class User {
     }
 
 
+    /**
+     * login as authorized user
+     * @param  string  $username  username or email address
+     * @param  string  $password  passowrd ofr the user
+     */
     public function login($username, $password) {
         $password = encrypt_string($password);
         $db = new Database();
@@ -159,8 +188,12 @@ class User {
     }
 
 
+    /**
+     * determine if user is logged in
+     * @return boolean  returns true if user is logged in as an authorized user
+     */
     public function is_authorized() {
-        if($_SESSION['authorized'] && $_SESSION['authorized'] == true) {
+        if ($_SESSION['authorized'] && $_SESSION['authorized'] == true) {
             return true;
         } else {
             return false;
@@ -168,6 +201,10 @@ class User {
     }
 
 
+    /**
+     * determine user access level
+     * @return boolean  returns true if the user is an admin
+     */
     public function is_admin() {
         $data = $this->read();
         if ($data['level'] >= 4) {
@@ -177,19 +214,31 @@ class User {
         }
     }
 
+
+    /**
+     * determine user access level
+     * @param  int      $userid  id of the current user
+     * @return boolean  returns true if current user can edit $this
+     */
     public function can_edit($userid) {
         $user = new User($userid);
         $user_data = $user->read();
-        if ($user->is_admin() || $user->id == $this->id) {
+        if ($user->id == $this->id || $user->level >= 3) {
             return true;
         } else {
             return false;
         }
     }
 
+
+    /**
+     * determine user acccess level
+     * @param  int      $userid  id of the current user
+     * @return boolean  returns true if the  user can delete $this
+     */
     public function user_can_delete($userid) {
         $user = new User($userid);
-        if ($user->level >= 3) {
+        if ($user->level >= 3 && $user->level > $this->level) {
             return true;
         } else {
             return false;

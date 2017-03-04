@@ -11,6 +11,7 @@ if (!defined('included')) {
 
 require('classes/user.php');
 require('classes/databse.php');
+require('classes/client.php');
 require('classes/account.php');
 
 
