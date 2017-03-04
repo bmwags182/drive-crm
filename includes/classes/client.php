@@ -8,13 +8,19 @@
 
 class Client {
     private $id;
+    private $office
     private $name;
     private $social;
     private $web;
     private $contacts;
     private $pod;
+    private $url;
 
 
+    /**
+     * create a new instance of a client
+     * @param int $id account id
+     */
     public function __construct($id = null) {
         $this->id = $id;
         if(!is_null($this->id) && $this->id > 0) {
@@ -26,7 +32,17 @@ class Client {
     }
 
 
-    public function create($id, $name, $pod, $social, $web, $contract = null) {
+    /**
+     * create a new client in the database
+     * @param  int    $id       client id
+     * @param  string $name     name for the client
+     * @param  int    $pod      pod number for the client
+     * @param  string $social   client social contract level
+     * @param  string $web      client web contract level
+     * @param  array  $contract links to contract uploads
+     * @param  int    $office   determines which office holds the client
+     */
+    public function create($name, $pod, $social, $web, $office, $contracts) {
         $db = new Database();
         $query = "INSERT INTO clients (name, pod, social, web, contracts) VALUES (:name, :pod, :social, :web, :contracts)";
         $db->query($query);
@@ -34,6 +50,7 @@ class Client {
         $db->bind(':pod', $pod);
         $db->bind(':social', $social);
         $db->bind(':web', $web);
+        $db->bind(':office', $office);
         $db->bind(':contracts', $contracts);
 
         $db->execute();
@@ -43,6 +60,10 @@ class Client {
     }
 
 
+    /**
+     * get client information from the database
+     * @return array    client information
+     */
     public function read() {
         $db = new Databse();
         $query = "SELECT * FROM clients WHERE id = :id";
@@ -54,23 +75,30 @@ class Client {
         $this->social = $row['social'];
         $this->web = $row['web'];
         $this->contracts = $row['contacts'];
+        $this->url = $row['url'];
         return $row;
     }
 
 
+    /**
+     * update cilent information in the database
+     * @param  array $data  new data from update form
+     * @return array        new information
+     */
     public function update($data) {
         $userid = $_SESSION['userid'];
         $db = new Database();
-        if(!$this->can_edit($userid)) {
+        if(!$this->user_can_edit($userid)) {
             die("You can't edit that client.");
         }
 
-        $query = "UPDATE clients SET name = :name, pod = :pod, social = :social, web = :web, contracts = :contracts";
+        $query = "UPDATE clients SET name = :name, pod = :pod, social = :social, web = :web, office = :office contracts = :contracts";
         $db->query($query);
         $db->bind(':name', $data['name']);
         $db->bind(':pod', $data['pod']);
         $db->bind(':social', $data['social']);
         $db->bind(':web', $data['web']);
+        $db->bind(':office', $data['office']);
         $db->bind(':contracts', $data['contracts']);
 
         $db->execute();
@@ -78,10 +106,14 @@ class Client {
     }
 
 
+    /**
+     * delete client from the database
+     * @return boolean true when client succesfully deleted
+     */
     public function delete() {
         $userid = $_SESSION['userid'];
         $db = new Database();
-        if(!$this->can_delete($userid)) {
+        if(!$this->user_can_delete($userid)) {
             die("You cannot delete clients.");
         }
 
@@ -95,20 +127,60 @@ class Client {
     }
 
 
-    public function can_edit($userid) {
-        $user = new User($userid);
-        if($user->is_admin() || $user->pod == $this->pod) {
-            return true;
-        }
-        return false;
+    /**
+     * get list of the client's online accounts
+     * @return array        list of online accounts
+     */
+    public function get_accounts() {
+        $db = new Database();
+        $query = "SELECT * FROM accounts WHERE clientid = :clientid";
+        $db->query($query);
+        $db->bind(':clientid', $this->id);
+        return $db->result_set()
     }
 
 
-    public function can_delete($userid) {
+    /**
+     * determine user access level
+     * @param  int      $userid  id of the current user
+     * @return boolean  returns true if the user has the proper access level
+     */
+    public function user_can_view($userid) {
         $user = new User($userid);
-        if($user->is_admin() || ($user->level >= 2 && $user->pod == $this->pod)) {
+        if ($user->is_admin() || $user->pod == $this->pod) {
             return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+
+
+    /**
+     * determine user access level
+     * @param  int      $userid  id of the current user
+     * @return boolean  returns true if the user has the proper access level
+     */
+    public function user_can_edit($userid) {
+        $user = new User($userid);
+        if($user->is_admin() || ($user->pod == $this->pod && $user->level >= 3)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     * determine usesr access level
+     * @param  int      $userid  id of the current user
+     * @return boolean  returns true if user has the correct access level
+     */
+    public function user_can_delete($userid) {
+        $user = new User($userid);
+        if($user->is_admin() || ($user->level >= 3 && $user->pod == $this->pod)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

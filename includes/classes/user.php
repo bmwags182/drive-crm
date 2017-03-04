@@ -16,9 +16,10 @@ class User {
     private $password;
     private $email;
     private $pod;
+    private $office;
 
     /**
-     * create the user
+     * create new instance of the user
      * @param integer $id user id
      */
     public function __construct($id = null) {
@@ -29,10 +30,22 @@ class User {
     }
 
 
-    public function create($level, $title, $first_name, $last_name, $email, $username, $password, $pod) {
+    /**
+     * create a new user in the database
+     * @param  int      $level      access level of the user
+     * @param  string   $title      user's position at the company
+     * @param  string   $first_name user's first name
+     * @param  string   $last_name  user's last name
+     * @param  string   $email      user's email address
+     * @param  string   $username   username for user
+     * @param  string   $password   user's password
+     * @param  int      $pod        which pod the user belongs to
+     * @param  int      $office     employees home office
+     */
+    public function create($level, $title, $office, $pod, $first_name, $last_name, $email, $username, $password) {
         $password = encrypt_string($password);
         $db = new Databse();
-        $query = "INSERT INTO users (level, title, fname, lname, email, username, password, pod) VALUES (:level, :title, :fname, :lname, :email, :username, :password, :pod)";
+        $query = "INSERT INTO users (level, title, fname, lname, email, username, password, pod, office) VALUES (:level, :title, :fname, :lname, :email, :username, :password, :pod, :office)";
         $db->query($query);
 
         $db->bind(':level', $level);
@@ -42,6 +55,7 @@ class User {
         $db->bind(':username', $username);
         $db->bind(':password', $password);
         $db->bind(':pod', $pod);
+        $db->bind(':office', $office);
 
         $db->execute();
 
@@ -63,6 +77,7 @@ class User {
         $this->email = $row['email'];
         $this->username = $row['username'];
         $this->pod = $row['pod'];
+        $this->office = $row['office'];
         return $row;
     }
 
@@ -74,7 +89,7 @@ class User {
         }
         $db = new Database();
         $password = encrypt_string($data['password']);
-        $query = "UPDATE user SET level = :level, fname = :fname, lname = :lname, email = :email, password = :password, pod = :pod WHERE id = :id";
+        $query = "UPDATE user SET level = :level, fname = :fname, lname = :lname, email = :email, password = :password, pod = :pod, office = :office WHERE id = :id";
         $db->query($query);
 
         $db->bind(':id', $this->id);
@@ -84,6 +99,7 @@ class User {
         $db->bind(':lname', $data['lname']);
         $db->bind(':email', $data['email']);
         $db->bind(':password', $password);
+        $db->bind(':office', $data['office']);
         $db->bind(':pod', $data['pod']);
 
         if (!check_password($old_data['password'], $password)) {
@@ -97,7 +113,8 @@ class User {
 
     public function get_clients() {
         $db = new Databse();
-        $query = "SELECT * FROM clients WHERE pod = :pod";
+        $query = "SELECT * FROM clients WHERE pod = :pod AND office = :office";
+        $db->query($query);
         $db->bind(':pod', $this->pod);
         $rows = $db->result_set();
         return $rows;
@@ -106,9 +123,8 @@ class User {
 
     public function delete() {
         $userid = $_SESSION['userid'];
-        $del_user = new USER();
 
-        if(!$this->can_user_delete($userid, $del_user->read['id'])) {
+        if(!$this->user_can_delete($userid) {
             die("You can't kill this person.");
         }
         $db = new Database();
@@ -154,17 +170,26 @@ class User {
 
     public function is_admin() {
         $data = $this->read();
-        if ($data['level'] >= 3) {
+        if ($data['level'] >= 4) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function can_edit() {
-        $user = new User($_SESSION['userid']);
+    public function can_edit($userid) {
+        $user = new User($userid);
         $user_data = $user->read();
-        if ($user->is_admin() || $id == $this->id) {
+        if ($user->is_admin() || $user->id == $this->id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function user_can_delete($userid) {
+        $user = new User($userid);
+        if ($user->level >= 3) {
             return true;
         } else {
             return false;
