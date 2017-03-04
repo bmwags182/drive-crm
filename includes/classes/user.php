@@ -142,6 +142,19 @@ class User {
 
 
     /**
+     * get all notes for user
+     * @return array all notes for $this user
+     */
+    public function get_notes() {
+        $db = new Database();
+        $query = "SELECT FROM notes WHERE userid = :userid";
+        $db->query($query);
+        $rows = $db->result_set();
+        return $rows;
+    }
+
+
+    /**
      * delete user from database
      * @return boolean  returns true if user is deleted
      */

@@ -140,6 +140,26 @@ class Client {
     }
 
 
+
+    public function count_notes() {
+        $db = new Databse();
+        $query = "SELECT count(id) FROM notes WHERE clientid = :clientid";
+        $db->query($query);
+        $db->bind(':clientid', $this->id);
+        return $db->single();
+    }
+
+
+
+    public function get_notes() {
+        $db = new Databse();
+        $query = "SELECT * FROM note WHERE clientid = :clientid";
+        $db->query($query);
+        $db->bind(':clientid', $this->id);
+        return $db->result_set();
+    }
+
+
     /**
      * determine user access level
      * @param  int      $userid  id of the current user
