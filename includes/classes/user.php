@@ -271,4 +271,17 @@ class User {
         header('Location: ' . DIR);
         exit();
     }
+
+
+    /**
+     * get all ticket notes by user
+     * @return  array    returns all ticket notes for user
+     */
+    public function get_ticket_notes() {
+        $db = new Database();
+        $query = "SELECT * FROM ticket_notes WHERE userid = :userid";
+        $db->query($query);
+        $db->bind(':userid', $_SESSION['userid']);
+        return $db->result_set();
+    }
 }
