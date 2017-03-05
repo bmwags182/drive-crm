@@ -6,7 +6,6 @@
  */
 
 require('../includes/config.php');
-include('../includes/templates/header.php');
 
 $page_title = "Drive CRM User Panel";
 
@@ -22,6 +21,10 @@ $tickets = $user->get_tickets(5);
 $ticket_notes = $user->get_ticket_notes(5);
 $client_notes = $user->get_notes(5);
 
+?>
+
+<?php 
+include('../includes/templates/header.php');
 ?>
 <div class="content"> 
 <section class="row">
