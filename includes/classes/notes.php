@@ -19,7 +19,7 @@ class Note {
      * create  new instance of a note
      * @param int  $id  id for the note
      */
-    public function __construct($id) {
+    public function __construct($id = null) {
         $this->id = $id;
         if (!is_null($this->id)) {
             $this->read();
