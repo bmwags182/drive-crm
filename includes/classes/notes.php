@@ -11,6 +11,7 @@ class Note {
     public $userid;
     public $date;
     public $message;
+    public $office;
     public $pod;
     public $edit_date;
 
@@ -38,15 +39,16 @@ class Note {
      * @param  int $pod          which pod can view the notes
      * @return none              funtions calls read() to get row
      */
-    public function create($clientid, $userid, $date, $message, $pod) {
+    public function create($clientid, $userid, $date, $message, $office, $pod) {
         $db = new Database();
-        $query = "INSERT INTO notes (clientid, userid, date, message, pod) VALUES :clientid, :userid, :date, message, :pod";
+        $query = "INSERT INTO notes (clientid, userid, date, message, office, pod) VALUES :clientid, :userid, :date, message, :office, :pod";
         $db->query($query);
 
         $db->bind(':clientid', $clientid);
         $db->bind(':userid', $userid);
         $db->bind(':date', $date);
         $db->bind(':message', $message);
+        $db->bind(':office', $office);
         $db->bind(':pod', $pod);
 
         $db->execute();

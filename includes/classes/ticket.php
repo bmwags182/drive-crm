@@ -10,6 +10,7 @@ class Ticket {
     public $clientid;
     public $assigned;
     public $status;
+    public $request_type;
     public $date;
     public $due_date;
     public $priority;
@@ -32,13 +33,13 @@ class Ticket {
 
 
     
-    public function create_ticket($cientid, $userid, $due_date, $message, $pod) {
+    public function create_ticket($cientid, $userid, $due_date, $message, $pod, $request_type) {
         $db = new Database();
         $user = new User($_SESSION['userid']);
         if (!$user->level <=2) {
             die("You cnnot create tickets.");
         }
-        $query = "INSERT INTO tickets (clientid, userid, date, due_date, message, pod) VALUES :clientid, :userid, :date, :due_date, :message, :pod";
+        $query = "INSERT INTO tickets (clientid, userid, date, due_date, message, pod, request_type) VALUES :clientid, :userid, :date, :due_date, :message, :pod, :request_type";
 
         $db->query($query);
         $db->bind(':clientid', $clientid);
@@ -46,6 +47,7 @@ class Ticket {
         $db->bind(':date', date(m,d,Y));
         $db->bind(':due_date', $due_date);
         $db->bind(':message', $message);
+        $db->bind(':request_type', $request_type);
         $db->bind(':pod', $pod);
 
         $db->execute();
@@ -184,10 +186,17 @@ class Ticket {
 
 
 
-    public function get_notes() {
+    public function get_notes($limit = null) {
         $db = new Database();
         $query = "SELECT * FROM ticket_notes WHERE ticketid = :ticketid";
-        $db->query($query);
+        if ($limit && $limit != '') {
+            $query = $query . " LIMIT :limit";
+            $db->query($query);
+            $db->bind(':limit', $limit);
+        } else {
+            $db->query($query);
+        }
+        $db->bind(':ticketid', $this->id);
         return $db->result_set();
     }
 }

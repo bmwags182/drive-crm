@@ -123,34 +123,52 @@ class User {
 
     /**
      * get client list for user
-     * @return array  list of clients user has access to
+     * @param  int    $limit limit the number of results returned
+     * @return array         list of clients user has access to
      */
-    public function get_clients() {
+    public function get_clients($limit = null) {
         $db = new Databse();
         $user = new User($_SESSION['userid']);
-        if ($user->is_admin()) {
-            $query = "SELECT * FROM clients";
-            $db->query($query);
-        } else {
-            $query = "SELECT * FROM clients WHERE pod = :pod AND office = :office";
-            $db->query($query);
-            $db->bind(':pod', $this->pod);
-            $db->bind(':office', $this->office);
+        $query = "SELECT * FROM clients ";
+        if (!$user->is_admin()) {
+            $query = $query . "WHERE pod = :pod AND office = :office";
         }
-        
+        if (!is_null($limit)) {
+            $limit_query = " LIMIT = :limit";
+            $query = $query . $limit_query;
+        }
+        $db->query($query);
+
+        // bind variables
+        if (!$user->is_admin()) {
+            $db->bind(':pod', $user->pod);
+        }
+        if (!is_null($limit)) {
+            $db->bind(':limit', $limit);
+        }
         $rows = $db->result_set();
         return $rows;
     }
 
 
     /**
-     * get all notes for user
-     * @return array all notes for $this user
+     * get notes for user
+     * @param  int    $limit limit the number of results returned
+     * @return array         notes for $this user
      */
-    public function get_notes() {
+    public function get_notes($limit = null) {
         $db = new Database();
-        $query = "SELECT FROM notes WHERE userid = :userid";
-        $db->query($query);
+        $query = "SELECT FROM notes WHERE pod = :pod AND office = :office ORDER BY date DESC";
+        if ($limit && $limit != '') {
+            $limit_query = " LIMIT :limit";
+            $query = $query . $limit_query;
+            $db->query($query);
+            $db->bind(':limit', $limit);
+        } else {
+            $db->query($query);
+        }
+        $db->bind(':pod', $this->pod);
+        $db->bind(':office', $this->office);
         $rows = $db->result_set();
         return $rows;
     }
@@ -274,14 +292,57 @@ class User {
 
 
     /**
-     * get all ticket notes by user
-     * @return  array    returns all ticket notes for user
+     * get tickets for user
+     * @param  int    $limit  limit the number of results returned
+     * @return array          list of tickets for user
      */
-    public function get_ticket_notes() {
+    public function get_tickets($limit = null) {
         $db = new Database();
-        $query = "SELECT * FROM ticket_notes WHERE userid = :userid";
-        $db->query($query);
-        $db->bind(':userid', $_SESSION['userid']);
+        if (!$this->is_admin()) {
+            $query = "SELECT * FROM tickets WHERE pod = :pod ORDER BY due_date DESC";
+        } else {
+            $query = "SELECT * FROM tickets WHERE assigned = :user";
+        }
+        if ($limit && $limit != '') {
+            $limit_query = " LIMIT :limit";
+            $query = $query . $limit_query;
+            $db->query($query);
+            $db->bind(':limit', $limit);
+        } else {
+            $db->query($query);
+        }
+        if (!$this->is_admin()) {
+            $db->bind(':pod', $this->pod);
+        } else {
+            $db->bind(':user', $this->id);
+        }
+        return $db->result_set();
+    }
+
+
+    /**
+     * get all ticket notes by user
+     * @param   int    $limit limit the number of results returned
+     * @return  array         returns all ticket notes for user
+     */
+    public function get_ticket_notes($limit = null) {
+        $db = new Database();
+        if (!$this->is_admin()) {
+            $query = "SELECT * FROM ticket_notes WHERE userid = :userid ORDER BY date";
+        } else {
+            $query = "SELECT * FROM ticket_notes"
+        }
+        if ($limit && $limit != '') {
+            $limit_query = " LIMIT :limit";
+            $query = $query . $limit_query;
+            $db->query($query);
+            $db->bind(':limit', $limit);
+        } else {
+            $db->query($query);
+        }
+        if (!$this->is_admin()) {
+            $db->bind(':userid', $_SESSION['userid']);
+        }
         return $db->result_set();
     }
 }

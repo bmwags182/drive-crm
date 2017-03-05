@@ -146,7 +146,7 @@ class Client {
      */
     public function count_notes() {
         $db = new Databse();
-        $query = "SELECT count(id) FROM notes WHERE clientid = :clientid";
+        $query = "SELECT count(id) AS count FROM notes WHERE clientid = :clientid";
         $db->query($query);
         $db->bind(':clientid', $this->id);
         return $db->single()['count'];
@@ -208,5 +208,30 @@ class Client {
         } else {
             return false;
         }
+    }
+
+
+
+    public function get_tickets($limit = null) {
+        $db = new Databse();
+        $query = "SELECT * FROM tickets WHERE clientid = :clientid";
+        if ($limit && $limit != '') {
+            $query = $query . " LIMIT :limit";
+            $db->query($query);
+            $db->bind(':limit', $limit);
+        } else {
+            $db->query($query);
+        }
+        $db->bind(':clientid', $this->id);
+        return $db->result_set();
+    }
+
+
+
+    public function count_tickets() {
+        $db = new Databse();
+        $query = "SELECT count(id) AS count FROM tickets WHERE clientis = clientid";
+        $db->query($query);
+        return $db->single()['count'];
     }
 }
