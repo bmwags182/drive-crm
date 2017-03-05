@@ -6,13 +6,13 @@
  */
 
 class Account {
-    private $id;
-    private $clientid;
-    private $name;
-    private $url;
-    private $username;
-    private $password;
-    private $pod;
+    public $id;
+    public $clientid;
+    public $name;
+    public $url;
+    public $username;
+    public $password;
+    public $pod;
 
 
     /**

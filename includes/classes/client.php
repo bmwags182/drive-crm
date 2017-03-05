@@ -7,14 +7,14 @@
 
 
 class Client {
-    private $id;
-    private $office
-    private $name;
-    private $social;
-    private $web;
-    private $contacts;
-    private $pod;
-    private $url;
+    public $id;
+    public $office;
+    public $name;
+    public $social;
+    public $web;
+    public $contacts;
+    public $pod;
+    public $url;
 
 
     /**
@@ -140,17 +140,23 @@ class Client {
     }
 
 
-
+    /**
+     * count the number of notes on a client
+     * @return int  number of rows
+     */
     public function count_notes() {
         $db = new Databse();
         $query = "SELECT count(id) FROM notes WHERE clientid = :clientid";
         $db->query($query);
         $db->bind(':clientid', $this->id);
-        return $db->single();
+        return $db->single()['count'];
     }
 
 
-
+    /**
+     * get notes for client
+     * @return array  all notes on a client
+     */
     public function get_notes() {
         $db = new Databse();
         $query = "SELECT * FROM note WHERE clientid = :clientid";

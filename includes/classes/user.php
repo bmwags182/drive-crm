@@ -7,16 +7,17 @@
 
 
 class User {
-    private $id;
-    private $level;
-    private $title;
-    private $first_name;
-    private $last_name;
-    private $username;
-    private $password;
-    private $email;
-    private $pod;
-    private $office;
+    public $id;
+    public $level;
+    public $title;
+    public $first_name;
+    public $last_name;
+    public $username;
+    public $password;
+    public $email;
+    public $pod;
+    public $office;
+
 
     /**
      * create new instance of the user
@@ -118,6 +119,7 @@ class User {
         $db->execute();
         $this->read();
     }
+
 
     /**
      * get client list for user
@@ -259,6 +261,10 @@ class User {
     }
 
 
+    /**
+     * log out current user
+     * @return none  return to homepage
+     */
     public function logout() {
         unset($_SESSION['authorized']);
         unset($_SESSION['userid']);
