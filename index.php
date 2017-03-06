@@ -37,9 +37,9 @@ include('../includes/templates/header.php');
 <col width="30%">
 <col width="30%">
 <tr>
-<th>Client</th>
-<th>Notes</th>
-<th>Tickets</th>
+<th><h4>Client</h4></th>
+<th><h4>Notes</h4></th>
+<th><h4>Tickets</h4></th>
 </tr>
 <?php 
 /*
@@ -70,9 +70,9 @@ foreach ($clients as $client) {
 <col width="30%">
 <col width="30%">
 <tr>
-<th>Client Name</th>
-<th>Type</th>
-<th>Due</th>
+<th><h4>Client Name</h4></th>
+<th><h4>Type</h4></th>
+<th><h4>Due</h4></th>
 </tr>
 <?php
 /*
@@ -108,9 +108,9 @@ foreach ($tickets as $ticket) {
 <col width="30%">
 <col width="30%">
 <tr>
-<th>Client Name</th>
-<th>Username</th>
-<th>Date</th>
+<th><h4>Client Name</h4></th>
+<th><h4>Username</h4></th>
+<th><h4>Date</h4></th>
 </tr>
 <?php 
 /*
@@ -139,9 +139,9 @@ foreach ($client_notes as $note) {
 <col width="30%">
 <col width="30%">
 <tr>
-<th>Client Name</th>
-<th>Created By</th>
-<th>Ticket Id</th>
+<th><h4>Client Name</h4></th>
+<th><h4>Created By</h4></th>
+<th><h4>Ticket Id</h4></th>
 </tr>
 <?php
 /*

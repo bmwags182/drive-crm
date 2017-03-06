@@ -34,13 +34,13 @@ class Client {
 
     /**
      * create a new client in the database
-     * @param  int    $id       client id
-     * @param  string $name     name for the client
-     * @param  int    $pod      pod number for the client
-     * @param  string $social   client social contract level
-     * @param  string $web      client web contract level
-     * @param  array  $contract links to contract uploads
-     * @param  int    $office   determines which office holds the client
+     * @param  int    $id        client id
+     * @param  string $name      name for the client
+     * @param  int    $pod       pod number for the client
+     * @param  string $social    client social contract level
+     * @param  string $web       client web contract level
+     * @param  array  $contracts links to contract uploads
+     * @param  int    $office    determines which office holds the client
      */
     public function create($name, $pod, $social, $web, $office, $contracts) {
         $db = new Database();
