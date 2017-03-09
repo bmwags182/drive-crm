@@ -19,7 +19,6 @@ class Database {
     public function __construct() {
         $dsn = 'mysql:host=' . $this->dbhost . ';dbname=' . $this->dbname;
         $options = array(
-            PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
         try {
             $this->dbh = new PDO($dsn, $this->dbuser, $this->dbpass, $options);

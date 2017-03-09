@@ -15,6 +15,16 @@ if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
 } else {
     $user = new User($_SESSION['userid']);
 }
+
+if ((!$_GET['id'] || $_GET['id'] == '') && (!$_GET['clientid'] || $_GET['clientid'] == '')) {
+    die("No Client or Note Selected.");
+} elseif ($_GET['clientid'] > 0 && is_int($_GET['clientid'])) {
+    $client = new Client($_GET['clientid']);
+} elseif ($_GET['id'] > 0 && is_int($_GET['id'])) {
+    $note = new Note($_GET['id']);
+} else {
+    die("Undefined Error");
+}
 ?>
 
 <?php 
