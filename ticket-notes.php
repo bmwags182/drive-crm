@@ -5,7 +5,7 @@
  *------------------------------
  */
 
-require('../includes/config.php');
+require('includes/config.php');
 
 $page_title = "Drive CRM Ticket Notes";
 
