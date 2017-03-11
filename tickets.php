@@ -15,8 +15,18 @@ if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
 } else {
     $user = new User($_SESSION['userid']);
 }
+
+if ($_GET['id'] && $_GET['id'] > 0) {
+    $ticket = new Ticket($_GET['id']);
+} elseif ($_GET['clientid'] && $_GET['clientid'] > 0) {
+    $client = new Client($_GET['clientid']);
+    $tickets = $client->get_tickets();
+} else {
+    $tickets = $user->get_tickets();
+}
 ?>
 
 <?php 
 include('includes/templates/header.php');
+
 ?>

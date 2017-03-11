@@ -21,7 +21,10 @@ class Ticket {
     public $pod;                // input visible to admin, default to $user->pod when lead
 
 
-
+    /**
+     * create a new instance of a ticket
+     * @param int $id id of the ticket you want to create
+     */
     public function __construct($id = null) {
         $this->id = $id;
         if (!is_null($this->id) && $this->id != 0) {

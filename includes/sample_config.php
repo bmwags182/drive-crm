@@ -38,7 +38,7 @@ session_start();
 define('DBHOST', /* HOST */);
 define('DBNAME', /* DATABASE */);
 define('DBUSER', /* USERNAME */);
-define('DBPASS', /* PASWORD */);
+define('DBPASS', /* PASSWORD */);
 
 // Create key for encryption
 define('KEY', pack('H*', bin2hex(openssl_random_pseudo_bytes(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC)))));
