@@ -7,18 +7,18 @@
 
 class Ticket {
     public $id;
-    public $clientid;
-    public $assigned;
-    public $status;
-    public $request_type;
-    public $date;
-    public $due_date;
-    public $priority;
-    public $edit_date;
-    public $edit_by;
-    public $message;
-    public $usesrid;
-    public $pod;
+    public $clientid;           // input required select id, name from clients order by name asc
+    public $assigned;           // input for admins
+    public $status;             // input visible for admin, hidden for leads
+    public $request_type;       // input required
+    public $date;               // input hidden current date
+    public $due_date;           // input required minimum curdate+2 weeks
+    public $priority;           // input visible for admins
+    public $edit_date;          // input hidden
+    public $edit_by;            // input hidden
+    public $message;            // input required
+    public $usesrid;            // input hidden, current user
+    public $pod;                // input visible to admin, default to $user->pod when lead
 
 
 
