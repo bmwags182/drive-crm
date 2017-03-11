@@ -24,7 +24,7 @@ $client_notes = $user->get_notes(5);
 ?>
 
 <?php 
-include('../includes/templates/header.php');
+include('includes/templates/header.php');
 ?>
 <div class="content"> 
 <section class="row">

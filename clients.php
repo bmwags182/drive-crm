@@ -30,7 +30,7 @@ if (isset($_GET['id']) && $_GET['id'] != 0) {
 ?>
 
 <?php 
-include('../includes/templates/header.php');
+include('includes/templates/header.php');
 
 if (isset($_GET['id'])) {
     ?>

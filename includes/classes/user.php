@@ -8,15 +8,15 @@
 
 class User {
     public $id;
-    public $level;
-    public $title;
-    public $first_name;
-    public $last_name;
-    public $username;
-    public $password;
-    public $email;
-    public $pod;
-    public $office;
+    public $level;          // need input field for leads and admins level must be < the user doing the creation
+    public $title;          // need input field for leads and admins
+    public $first_name;     // need input field for leads and admins
+    public $last_name;      // need input field for leads and admins
+    public $username;       // need input field for leads and admins
+    public $password;       // need input field for leads and admins
+    public $email;          // need input field for leads and admins
+    public $pod;            // need input field for admins
+    public $office;         // need input field for admins
 
 
     /**

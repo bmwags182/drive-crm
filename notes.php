@@ -28,7 +28,7 @@ if ((!$_GET['id'] || $_GET['id'] == '') && (!$_GET['clientid'] || $_GET['clienti
 ?>
 
 <?php 
-include('../includes/templates/header.php');
+include('includes/templates/header.php');
 if ($client) {
     $notes = $client->get_notes();
     ?>

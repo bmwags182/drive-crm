@@ -18,5 +18,5 @@ if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
 ?>
 
 <?php 
-include('../includes/templates/header.php');
+include('includes/templates/header.php');
 ?>

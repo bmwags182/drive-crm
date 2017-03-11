@@ -1,13 +1,13 @@
 <?php
 /*------------------------------
- *  Drive CRM - Ticket Notes Page
+ *  Drive CRM - New Ticket Page
  *  Author: Bret Wagner
  *------------------------------
  */
 
-require('includes/config.php');
+require('../includes/config.php');
 
-$page_title = "Drive CRM Ticket Notes";
+$page_title = "Drive CRM Tickets";
 
 if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
     header('Location: ' DIRADMIN . "/login.php");
@@ -18,5 +18,5 @@ if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
 ?>
 
 <?php 
-include('includes/templates/header.php');
+include('../includes/templates/header.php');
 ?>

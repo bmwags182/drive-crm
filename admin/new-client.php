@@ -1,13 +1,13 @@
 <?php
 /*------------------------------
- *  Drive CRM - Ticket Notes Page
+ *  Drive CRM - New Client Page
  *  Author: Bret Wagner
  *------------------------------
  */
 
-require('includes/config.php');
+require('../includes/config.php');
 
-$page_title = "Drive CRM Ticket Notes";
+$page_title = "Drive CRM Tickets";
 
 if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
     header('Location: ' DIRADMIN . "/login.php");
@@ -15,8 +15,12 @@ if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
 } else {
     $user = new User($_SESSION['userid']);
 }
+
+if ($user->level <=2) {
+    die("You are not allowed to create clients.");
+}
 ?>
 
 <?php 
-include('includes/templates/header.php');
+include('../includes/templates/header.php');
 ?>
