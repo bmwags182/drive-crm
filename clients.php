@@ -18,6 +18,9 @@ if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
 
 if (isset($_GET['id']) && $_GET['id'] != 0) {
     $client = new Client($_GET['id']);
+    if ($user->pod != $client->pod || !$user->is_admin()) {
+        die("NOT ALLOWED!");
+    }
     $notes = $client->get_notes();
     $accounts = $client->get_accounts();
 } else {
