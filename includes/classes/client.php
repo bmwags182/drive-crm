@@ -15,6 +15,9 @@ class Client {
     public $contacts;
     public $pod;
     public $url;
+    public $contact_name;
+    public $contact_email;
+    public $contact_phone;
 
 
     /**
@@ -42,9 +45,9 @@ class Client {
      * @param  array  $contracts links to contract uploads
      * @param  int    $office    determines which office holds the client
      */
-    public function create($name, $pod, $social, $web, $office, $contracts) {
+    public function create($name, $pod, $social, $web, $office, $contracts, $cname, $cemail, $cphone) {
         $db = new Database();
-        $query = "INSERT INTO clients (name, pod, social, web, contracts) VALUES (:name, :pod, :social, :web, :contracts)";
+        $query = "INSERT INTO clients (name, pod, social, web, contracts, contact_name, contact_email, contact_phone) VALUES (:name, :pod, :social, :web, :contracts, :c_name, :c_email, :c_phone)";
         $db->query($query);
         $db->bind(':name', $name);
         $db->bind(':pod', $pod);
@@ -52,6 +55,9 @@ class Client {
         $db->bind(':web', $web);
         $db->bind(':office', $office);
         $db->bind(':contracts', $contracts);
+        $db->bind(':c_name', $cname);
+        $db->bind(':c_email', $cemail);
+        $db->bind(':c_phone', $cphone);
 
         $db->execute();
 
@@ -76,6 +82,9 @@ class Client {
         $this->web = $row['web'];
         $this->contracts = $row['contacts'];
         $this->url = $row['url'];
+        $this->contact_name = $row['contact_name'];
+        $this->contact_email = $row['contact_email'];
+        $this->contact_phone = $row['contact_phone'];
         return $row;
     }
 

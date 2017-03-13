@@ -5,7 +5,6 @@
  *------------------------------
  */
 
-
 class Database {
     private $dbhost = DBHOST;
     private $dbame = DBNAME;
@@ -17,11 +16,11 @@ class Database {
 
 
     public function __construct() {
-        $dsn = 'mysql:host=' . $this->dbhost . ';dbname=' . $this->dbname;
+        $dsn = 'mysql:host=' . DBHOST . ';dbname=' . DBNAME;
         $options = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
         try {
-            $this->dbh = new PDO($dsn, $this->dbuser, $this->dbpass, $options);
+            $this->dbh = new PDO($dsn, DBUSER, DBPASS, $options);
         } catch (PDOException $e) {
             $this->exception = $e->getMessage();
         }
@@ -30,10 +29,10 @@ class Database {
 
 
     public function query($query) {
-        $this->stmt = $this->dbh->prepre($query);
+        $this->stmt = $this->dbh->prepare($query);
     }
 
-    
+
     public function bind($param, $value, $type = null) {
         if (is_null($type)) {
             switch (true) {
@@ -48,7 +47,7 @@ class Database {
                     break;
                 default:
                     $type = PDO::PARAM_STR;
-            } 
+            }
         }
 
         $this->stmt->bindValue($param, $value, $type);
@@ -76,9 +75,9 @@ class Database {
         return $this->stmt->rowCount();
     }
 
-    
+
     public function last_insert_id() {
-        return $this->stmt->lastInsertId();
+        return $this->dbh->lastInsertId();
     }
 
 

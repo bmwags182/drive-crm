@@ -24,7 +24,7 @@ require('classes/ticket.php');
  *  @return string encrypted string
  */
 function encrypt_string($to_encrypt) {
-    $iv_size = mcrypt_encrypt_get__iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);
+    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);
     $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
     return base64_encode($iv . mcrypt_encrypt(MCRYPT_RIJNDAEL_256, KEY, $to_encrypt, MCRYPT_MODE_CBC, $iv));
 }

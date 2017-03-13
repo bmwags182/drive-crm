@@ -26,7 +26,7 @@ class User {
     public function __construct($id = null) {
         $this->id = $id;
         if (!is_null($this->id) && $this->id > 0) {
-            $this->get_data();
+            $this->read();
         }
     }
 
@@ -45,7 +45,7 @@ class User {
      */
     public function create($level, $title, $office, $pod, $first_name, $last_name, $email, $username, $password) {
         $password = encrypt_string($password);
-        $db = new Databse();
+        $db = new Database();
         $query = "INSERT INTO users (level, title, fname, lname, email, username, password, pod, office) VALUES (:level, :title, :fname, :lname, :email, :username, :password, :pod, :office)";
         $db->query($query);
 
@@ -57,10 +57,12 @@ class User {
         $db->bind(':password', $password);
         $db->bind(':pod', $pod);
         $db->bind(':office', $office);
+        $db->bind(':email', $email);
+
+        $this->id = $db->last_insert_id();
 
         $db->execute();
 
-        $this->id = $db->last_insert_id();
         $this->read();
     }
 
@@ -127,7 +129,7 @@ class User {
      * @return array         list of clients user has access to
      */
     public function get_clients($limit = null) {
-        $db = new Databse();
+        $db = new Database();
         $user = new User($_SESSION['userid']);
         $query = "SELECT * FROM clients ";
         if (!$user->is_admin()) {
@@ -140,9 +142,12 @@ class User {
         $db->query($query);
 
         // bind variables
+
         if (!$user->is_admin()) {
+            $db->bind(':office', $user->office);
             $db->bind(':pod', $user->pod);
         }
+
         if (!is_null($limit)) {
             $db->bind(':limit', $limit);
         }
@@ -158,8 +163,8 @@ class User {
      */
     public function get_notes($limit = null) {
         $db = new Database();
-        $query = "SELECT FROM notes WHERE pod = :pod AND office = :office ORDER BY date DESC";
-        if ($limit && $limit != '') {
+        $query = "SELECT * FROM notes WHERE pod = :pod AND office = :office";
+        if (!is_null($limit) && $limit != 0) {
             $limit_query = " LIMIT :limit";
             $query = $query . $limit_query;
             $db->query($query);
@@ -216,7 +221,7 @@ class User {
             header('Location: ' . DIRADMIN);
             exit();
         } else {
-            $_SESSION['error'] = "Sorry, your username or password was incorrect.";
+            $_SESSION['error'] = "Username: " . $username . "\nEncrypted Password: " . $password . "\nDecrypted Password: " . decrypt_string($password);
         }
     }
 

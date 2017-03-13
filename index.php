@@ -16,35 +16,13 @@ if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
     $user = new User($_SESSION['userid']);
 }
 
-$clients = $user->get_clients(5);
-$tickets = $user->get_tickets(5);
-$ticket_notes = $user->get_ticket_notes(5);
-$client_notes = $user->get_notes(5);
+$clients = $user->get_clients();
+$tickets = $user->get_tickets();
+$ticket_notes = $user->get_ticket_notes();
+$client_notes = $user->get_notes();
 
+include('includes/templates/header.php');
 ?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<?php
-if (isset($page_title) && $page_title != '') {
-    echo '<title>'. $page_title .'</title>';
-} else {
-    echo '<title>'. SITETITLE .'</title>';
-}
-?>
-<meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Anton|Domine|Montserrat|Titillium+Web" rel="stylesheet">
-</head>
-<body>
-<!-- NAV -->
-<div id="navigation">
-    <div class="menu">
-
-    </div>
-</div>
-<!-- END NAV -->
 
 <div class="content">
 <section class="row">
@@ -188,10 +166,5 @@ foreach ($ticket_notes as $note) {
 </div>
 </section>
 </div>
-    <div id="footer">
-            <div class="copy"><p>&copy; <?php echo SITETITLE.' '. date('Y');?> </p></div>
-    </div><!-- close footer -->
-
-
-</body>
-</html>
+<?php
+include('includes/templates/footer.php');
