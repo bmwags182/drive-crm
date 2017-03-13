@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*------------------------------
  *  Drive CRM - Header Template
  *  Author: Bret Wagner
@@ -21,3 +21,4 @@ if (isset($page_title) && $page_title != '') {
 </head>
 <body>
 <?php include('navigation.php');
+?>

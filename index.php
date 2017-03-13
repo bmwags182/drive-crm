@@ -10,7 +10,7 @@ require('includes/config.php');
 $page_title = "Drive CRM User Panel";
 
 if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
-    header('Location: ' DIRADMIN . "/login.php");
+    header('Location: '. DIRADMIN . "/login.php");
     exit();
 } else {
     $user = new User($_SESSION['userid']);
@@ -23,10 +23,33 @@ $client_notes = $user->get_notes(5);
 
 ?>
 
-<?php 
-include('includes/templates/header.php');
+<?php
+// include('includes/templates/header.php');
 ?>
-<div class="content"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php
+if (isset($page_title) && $page_title != '') {
+    echo '<title>'. $page_title .'</title>';
+} else {
+    echo '<title>'. SITETITLE .'</title>';
+}
+?>
+<meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Anton|Domine|Montserrat|Titillium+Web" rel="stylesheet">
+</head>
+<body>
+<!-- NAV -->
+<div id="navigation">
+    <div class="menu">
+
+    </div>
+</div>
+<!-- END NAV -->
+
+<div class="content">
 <section class="row">
 <div class="wrapper">
 <div class="column">
@@ -41,7 +64,7 @@ include('includes/templates/header.php');
 <th><h4>Notes</h4></th>
 <th><h4>Tickets</h4></th>
 </tr>
-<?php 
+<?php
 /*
     list results for clients here
  */
@@ -112,7 +135,7 @@ foreach ($tickets as $ticket) {
 <th><h4>Username</h4></th>
 <th><h4>Date</h4></th>
 </tr>
-<?php 
+<?php
 /*
     list results for client notes here
  */
@@ -123,7 +146,7 @@ foreach ($client_notes as $note) {
     ?>
     <tr class="client-note">
     <td class="client-name"><p><a href="<?php echo DIR . '/notes.php?clientid=' . $client->id;?>" title="View Note"><?php echo $client->name;?></a></p></td>
-    <td class="created-by"><p><a href="<?php echo DIR . '/users.php?id=' $created_by->id; ?>" title="View <?php echo $created_by->username;?>'s Tickets"><?php echo $created_by->username; ?></a></p></td>
+    <td class="created-by"><p><a href="<?php echo DIR . '/users.php?id=' . $created_by->id; ?>" title="View <?php echo $created_by->username;?>'s Tickets"><?php echo $created_by->username; ?></a></p></td>
     <td class="creation-date"><p><?php echo $row->due_date;?></p></td>
     </tr>
 }
@@ -164,6 +187,12 @@ foreach ($ticket_notes as $note) {
 </div>
 </section>
 </div>
+    <div id="footer">
+            <div class="copy"><p>&copy; <?php echo SITETITLE.' '. date('Y');?> </p></div>
+    </div><!-- close footer -->
 
+
+</body>
+</html>
 <?php
-include('..includes/templates/footer.php');
+// require('includes/templates/footer.php');
