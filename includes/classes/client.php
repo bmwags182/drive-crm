@@ -122,7 +122,7 @@ class Client {
         $db->bind(':id', $this->id);
         if (!$this->read()) {
             return true;
-        }    
+        }
         return false;
     }
 
@@ -136,7 +136,7 @@ class Client {
         $query = "SELECT * FROM accounts WHERE clientid = :clientid";
         $db->query($query);
         $db->bind(':clientid', $this->id);
-        return $db->result_set()
+        return $db->result_set();
     }
 
 

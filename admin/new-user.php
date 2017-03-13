@@ -10,7 +10,7 @@ require('../includes/config.php');
 $page_title = "Drive CRM New User";
 
 if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
-    header('Location: ' DIRADMIN . "/login.php");
+    header('Location: ' . DIRADMIN . "/login.php");
     exit();
 } else {
     $user = new User($_SESSION['userid']);
@@ -22,7 +22,7 @@ if ($user->level <= 2) {
 
 ?>
 
-<?php 
+<?php
 include('../includes/templates/header.php');
 ?>
 <div class="content">
@@ -71,7 +71,7 @@ include('../includes/templates/header.php');
 if ($user->level >=4) {
 ?>
 <option value="3">Senior/Lead</option>
-<?php 
+<?php
 }
 if ($user->level == 5) {
 ?>
@@ -87,7 +87,7 @@ if ($user->level == 5) {
 <?php
 if ($user->is_admin()) {
     ?>
-    
+
     <div class="form-row">
     <div class="form-column column2 first">
     <label>Office:</label><br />

@@ -10,7 +10,7 @@ include('../includes/templates/header.php');
 
 $page_title = "Drive CRM Login Page";
 if (!is_null($_SESSION['authorized']) && !is_null($_SESSION['userid']) && $_SESSION['userid'] != 0) {
-    header('Location: ' DIR);
+    header('Location: ' . DIR);
 } else {
     $user = new User();
 }
@@ -24,7 +24,6 @@ if ($_POST['login'] && $_POST['login'] != '') {
 <div class="content">
 
     <div id="login">
-        <p><?php messages();?></p>
         <form method="post" action="">
             <p><label><strong>Username</strong><input type="text" name="username" /></label></p>
             <p><label><strong>Password</strong><input type="password" name="password" /></label></p>

@@ -10,13 +10,13 @@ require('includes/config.php');
 $page_title = "Drive CRM Users";
 
 if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
-    header('Location: ' DIRADMIN . "/login.php");
+    header('Location: ' . DIRADMIN . "/login.php");
     exit();
 } else {
     $user = new User($_SESSION['userid']);
 }
 ?>
 
-<?php 
+<?php
 include('includes/templates/header.php');
 ?>

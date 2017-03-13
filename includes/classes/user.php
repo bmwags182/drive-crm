@@ -76,7 +76,7 @@ class User {
         $db->bind(':id', $this->id);
         $row = $db->single();
         $this->id = $row['id'];
-        $this->level = $row['level'],
+        $this->level = $row['level'];
         $this->first_name = $row['fname'];
         $this->last_name = $row['lname'];
         $this->email = $row['email'];
@@ -181,7 +181,7 @@ class User {
     public function delete() {
         $userid = $_SESSION['userid'];
 
-        if (!$this->user_can_delete($userid) {
+        if (!$this->user_can_delete($userid)) {
             die("You can't kill this person.");
         }
         $db = new Database();
@@ -330,7 +330,7 @@ class User {
         if (!$this->is_admin()) {
             $query = "SELECT * FROM ticket_notes WHERE userid = :userid ORDER BY date";
         } else {
-            $query = "SELECT * FROM ticket_notes"
+            $query = "SELECT * FROM ticket_notes";
         }
         if ($limit && $limit != '') {
             $limit_query = " LIMIT :limit";

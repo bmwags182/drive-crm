@@ -75,7 +75,7 @@ class Note {
         $this->pod = $row['pod'];
         return $row;
     }
-    
+
 
     /**
      * uodate note in the database
@@ -123,7 +123,7 @@ class Note {
      * @return boolean  returns true if user can edit
      */
     public function user_can_edit($userid) {
-        $user = new User($_SESSION['userid'])
+        $user = new User($_SESSION['userid']);
         if ($user->is_admin() || $user->id == $this->userid) {
             return true;
         } else {

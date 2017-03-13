@@ -10,7 +10,7 @@ if (!defined('included')) {
 }
 
 require('classes/user.php');
-require('classes/databse.php');
+require('classes/database.php');
 require('classes/client.php');
 require('classes/account.php');
 require('classes/note.php');

@@ -82,7 +82,7 @@ class Ticket_note {
     public function update($data) {
         $db = new Database();
         $query = "UPDATE ticket_notes SET ";
-        
+
         if ($data['message'] && $data['message'] != '') {
             $query_array[] = "message = :message";
             $db->bind(':message', $data['message']);
@@ -99,7 +99,7 @@ class Ticket_note {
         }
 
         $query = $query . implode(", ", $query_array) . " WHERE id = :id";
-        $db->bind(':id', = $this->id);
+        $db->bind(':id', $this->id);
         $db->query($query);
         $db->execute();
         $this->read();
