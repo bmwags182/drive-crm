@@ -29,13 +29,11 @@ class Ticket {
         $this->id = $id;
         if (!is_null($this->id) && $this->id != 0) {
             $this->read();
-        } else {
-            die("No Ticket selected");
         }
     }
 
 
-    
+
     public function create_ticket($cientid, $userid, $due_date, $message, $pod, $request_type) {
         $db = new Database();
         $user = new User($_SESSION['userid']);
@@ -124,7 +122,7 @@ class Ticket {
         if ($data['edit_by'] && $data['edit_by'] != '') {
             $query_array[] = "edit_by = :edit_by";
             $db->bind(':edit_by', $data['edit_by']);
-        } 
+        }
 
         $query_array = implode(", ", $query_array);
         $query = $query . $query_array . " WHERE id = :id";

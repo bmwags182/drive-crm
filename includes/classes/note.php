@@ -24,8 +24,6 @@ class Note {
         $this->id = $id;
         if (!is_null($this->id)) {
             $this->read();
-        } else {
-            die("You didn't select a note");
         }
     }
 

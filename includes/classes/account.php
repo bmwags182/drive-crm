@@ -6,13 +6,12 @@
  */
 
 class Account {
-    public $id;
-    public $clientid;
-    public $name;
-    public $url;
-    public $username;
-    public $password;
-    public $pod;
+    public $id;             // No input needed
+    public $clientid;       // Input needed
+    public $name;           // Input needed
+    public $url;            // Input needed
+    public $username;       // input needed
+    public $password;       // input needed
 
 
     /**
@@ -24,9 +23,6 @@ class Account {
         $this->id = $id;
         if (!is_null($this->id) && $this->id > 0) {
             $this->read();
-        } else {
-            // No account selected
-            die("You didn't select an account");
         }
     }
 
@@ -41,7 +37,7 @@ class Account {
      * @param  int    $pod       pod number for the parent client
      * @return array  returns the account information
      */
-    public function create($clientid, $name, $url, $username, $password, $pod) {
+    public function create($clientid, $name, $url, $username, $password) {
         $db = new Database();
         $query = "INSERT INTO accounts (name, clientid, url, username, password) VALUES (:name, :clientid, :url, :username, :password)";
         $db->query($query);
@@ -50,12 +46,11 @@ class Account {
         $db->bind(':url', $url);
         $db->bind(':username', $username);
         $db->bind(':password', $password);
-        $db->bind(':pod', $pod);
 
         $db->execute();
 
         $this->id = $db->insert_last_id();
-        return $this->read();        
+        return $this->read();
     }
 
 
@@ -81,7 +76,7 @@ class Account {
     /**
      * update account information in the database
      * @param  array  $data  new information from update form
-     * @return array  array with new information in the database 
+     * @return array  array with new information in the database
      */
     public function update($data) {
         $userid = $_SESSION['userid'];
@@ -122,7 +117,7 @@ class Account {
         $db->bind(':id', $this->id);
         if (!$this->read()) {
             return true;
-        }    
+        }
         return false;
     }
 
@@ -134,14 +129,15 @@ class Account {
      */
     public function user_can_view($userid) {
         $user = new User($userid);
-        if ($user->is_admin() || $user->pod == $this->pod) {
+        $client = new Client($this->clientid);
+        if ($user->is_admin() || $user->pod == $client->pod) {
             return true;
         } else {
             return false;
         }
     }
 
-    
+
     /**
      * determine user access level
      * @param  int      $userid id of the current user
@@ -165,7 +161,7 @@ class Account {
     public function user_can_delete($userid) {
         $user = new User($userid);
         if ($user->is_admin() || ($user->pod == $this->pod && $user->level >= 3)) {
-            return true; 
+            return true;
         } else {
             return false;
         }

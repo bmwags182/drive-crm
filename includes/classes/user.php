@@ -130,26 +130,30 @@ class User {
      */
     public function get_clients($limit = null) {
         $db = new Database();
-        $user = new User($_SESSION['userid']);
-        $query = "SELECT * FROM clients ";
-        if (!$user->is_admin()) {
-            $query = $query . "WHERE pod = :pod AND office = :office";
+        $query = "SELECT * FROM clients";
+        if (!$this->is_admin()) {
+            $query = $query . " WHERE pod = :pod AND office = :office";
         }
         if (!is_null($limit)) {
             $limit_query = " LIMIT = :limit";
             $query = $query . $limit_query;
         }
+
         $db->query($query);
 
         // bind variables
 
-        if (!$user->is_admin()) {
-            $db->bind(':office', $user->office);
-            $db->bind(':pod', $user->pod);
+        if (!$this->is_admin()) {
+            $db->bind(':office', $this->office);
+            $db->bind(':pod', $this->pod);
         }
 
         if (!is_null($limit)) {
             $db->bind(':limit', $limit);
+        }
+        $_SESSION['debug'] = $query;
+        if ($db->row_count() == 0 ) {
+            return false;
         }
         $rows = $db->result_set();
         return $rows;

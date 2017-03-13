@@ -7,17 +7,17 @@
 
 
 class Client {
-    public $id;
-    public $office;
-    public $name;
-    public $social;
-    public $web;
-    public $contacts;
-    public $pod;
-    public $url;
-    public $contact_name;
-    public $contact_email;
-    public $contact_phone;
+    public $id;                 // No input needed
+    public $office;             // Input needed if user is an admin
+    public $name;               // Input needed
+    public $social;             // Input needed
+    public $web;                // Input needed
+    public $contracts;           // input needed
+    public $pod;                // input needed is user is an admin
+    public $url;                // input needed
+    public $contact_name;       // input needed
+    public $contact_email;      // input needed
+    public $contact_phone;      // input needed
 
 
     /**
@@ -28,9 +28,6 @@ class Client {
         $this->id = $id;
         if (!is_null($this->id) && $this->id > 0) {
             $this->read();
-        } else {
-            $user = new User($_SESSION['userid']);
-            return $user->get_clients();
         }
     }
 
@@ -45,9 +42,9 @@ class Client {
      * @param  array  $contracts links to contract uploads
      * @param  int    $office    determines which office holds the client
      */
-    public function create($name, $pod, $social, $web, $office, $contracts, $cname, $cemail, $cphone) {
+    public function create($name, $pod, $social, $web, $office, $contracts, $cname, $cemail, $cphone, $url) {
         $db = new Database();
-        $query = "INSERT INTO clients (name, pod, social, web, contracts, contact_name, contact_email, contact_phone) VALUES (:name, :pod, :social, :web, :contracts, :c_name, :c_email, :c_phone)";
+        $query = "INSERT INTO clients (name, pod, social, web, contracts, contact_name, contact_email, contact_phone, office, url) VALUES (:name, :pod, :social, :web, :contracts, :c_name, :c_email, :c_phone, :office, :url)";
         $db->query($query);
         $db->bind(':name', $name);
         $db->bind(':pod', $pod);
@@ -58,10 +55,12 @@ class Client {
         $db->bind(':c_name', $cname);
         $db->bind(':c_email', $cemail);
         $db->bind(':c_phone', $cphone);
+        $db->bind(':url', $url);
+
+        $this->id = $db->last_insert_id();
 
         $db->execute();
 
-        $this->id = $db->insert_last_id();
         $this->read();
     }
 
@@ -71,7 +70,7 @@ class Client {
      * @return array    client information
      */
     public function read() {
-        $db = new Databse();
+        $db = new Database();
         $query = "SELECT * FROM clients WHERE id = :id";
         $db->query($query);
         $db->bind(':id', $this->id);
@@ -80,7 +79,7 @@ class Client {
         $this->pod = $row['pod'];
         $this->social = $row['social'];
         $this->web = $row['web'];
-        $this->contracts = $row['contacts'];
+        $this->contracts = $row['contracts'];
         $this->url = $row['url'];
         $this->contact_name = $row['contact_name'];
         $this->contact_email = $row['contact_email'];
@@ -154,7 +153,7 @@ class Client {
      * @return int  number of rows
      */
     public function count_notes() {
-        $db = new Databse();
+        $db = new Database();
         $query = "SELECT count(id) AS count FROM notes WHERE clientid = :clientid";
         $db->query($query);
         $db->bind(':clientid', $this->id);
@@ -167,7 +166,7 @@ class Client {
      * @return array  all notes on a client
      */
     public function get_notes() {
-        $db = new Databse();
+        $db = new Database();
         $query = "SELECT * FROM note WHERE clientid = :clientid";
         $db->query($query);
         $db->bind(':clientid', $this->id);
@@ -222,7 +221,7 @@ class Client {
 
 
     public function get_tickets($limit = null) {
-        $db = new Databse();
+        $db = new Database();
         $query = "SELECT * FROM tickets WHERE clientid = :clientid";
         if ($limit && $limit != '') {
             $query = $query . " LIMIT :limit";
@@ -238,7 +237,7 @@ class Client {
 
 
     public function count_tickets() {
-        $db = new Databse();
+        $db = new Database();
         $query = "SELECT count(id) AS count FROM tickets WHERE clientis = clientid";
         $db->query($query);
         return $db->single()['count'];

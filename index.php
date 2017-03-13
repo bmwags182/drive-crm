@@ -22,13 +22,19 @@ $ticket_notes = $user->get_ticket_notes();
 $client_notes = $user->get_notes();
 
 include('includes/templates/header.php');
+if (isset($_SESSION['debug']) && $_SESSION['debug'] != '') {
+    ?>
+    <p class="debug"><?php echo $_SESSION['debug']; ?></p>
+    <?php
+    unset($_SESSION['debug']);
+}
 ?>
 
 <div class="content">
 <section class="row">
 <div class="wrapper">
 <div class="column">
-<h4 class="column-title">Pod Clients</h4>
+<h4 class="column-title"><?php echo $user->office; ?> Pod <?php echo $user->pod; ?> Clients</h4>
 <div class="wrapper">
 <table>
 <col width="40%">
@@ -43,14 +49,24 @@ include('includes/templates/header.php');
 /*
     list results for clients here
  */
-foreach ($clients as $client) {
-    $row = new Client($client['id']);
-
+if (is_array($clients)) {
+    foreach ($clients as $client) {
+        $row = new Client($client['id']);
+        ?>
+        <tr class="client">
+        <td class="client-name"><p><a href="<?php echo DIR . '/clients.php?id=' . $row['id'];?>" title="<?php echo $client['name']; ?>"><?php if ($row->name) {echo $row->name;} ?></a></p></td>
+        <td class="note-count"><p><a href="<?php if ($row->id) { echo DIR . '/notes.php?clientid=' . $row->id;}?>" title="View Notes"><?php if ($row->count_notes() >= 1) { echo $row->count_notes();} ?></a></p></td>
+        <td class="ticket-count"><p><?php if ($row->count_tickets() >= 1) {echo $row->count_tickets();} ?></p></td>
+        </tr>
+        <?php
+    }
+} elseif ($clients && $clients != '') {
+    $client = new Client($clients['id']);
     ?>
     <tr class="client">
-    <td class="client-name"><p><a href="<?php echo DIR . '/clients.php?id=' . $row['id'];?>" title="<?php echo $client['name']; ?>"><?php echo $client['name']; ?></a></p></td>
-    <td class="note-count"><p><a href="<?php echo DIR . '/notes.php?clientid=' . $client['id'];?>" title="View Notes"><?php echo $row->count_notes(); ?></a></p></td>
-    <td class="ticket-count"><p><?php echo $row->count_tickets(); ?></p></td>
+    <td class="client-name"><p><a href="<?php echo DIR . '/clients.php?id=' . $client['id']; ?>"><?php echo $client['name']; ?></a></p></td>
+    <td class="note-count"><p><?php echo $client->count_notes(); ?></p></td>
+    <td class="ticket-count"><p><?php echo $client->count_tickets(); ?></p></td>
     </tr>
     <?php
 }
