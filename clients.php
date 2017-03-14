@@ -108,7 +108,7 @@ if (isset($_GET['id'])) {
         <td><p><?php echo $account['name']; ?></p></td>
         <td><p><?php echo $account['url']; ?></p></td>
         <td><p><?php echo $account['username']; ?></p></td>
-        <td><button class="view-btn" id="view-pass" onclick="CopyToClipboard(<?php echo decrypt_string($account->view_password()); ?>)">View Password</button></td>
+        <td><button class="view-btn" id="view-pass" onclick="CopyToClipboard(<?php echo decrypt_string($account->password); ?>)">Copy Password</button></td>
         </tr>
         <?php
     }
