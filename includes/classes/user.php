@@ -151,10 +151,7 @@ class User {
         if (!is_null($limit)) {
             $db->bind(':limit', $limit);
         }
-        $_SESSION['debug'] = $query;
-        if ($db->row_count() == 0 ) {
-            return false;
-        }
+
         $rows = $db->result_set();
         return $rows;
     }
