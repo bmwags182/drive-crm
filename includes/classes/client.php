@@ -84,7 +84,6 @@ class Client {
         $this->contact_name = $row['contact_name'];
         $this->contact_email = $row['contact_email'];
         $this->contact_phone = $row['contact_phone'];
-        $this->office = $row['office'];
         return $row;
     }
 
@@ -168,7 +167,7 @@ class Client {
      */
     public function get_notes() {
         $db = new Database();
-        $query = "SELECT * FROM notes WHERE clientid = :clientid";
+        $query = "SELECT * FROM note WHERE clientid = :clientid";
         $db->query($query);
         $db->bind(':clientid', $this->id);
         return $db->result_set();
@@ -239,7 +238,7 @@ class Client {
 
     public function count_tickets() {
         $db = new Database();
-        $query = "SELECT count(id) AS count FROM tickets WHERE clientid = clientid";
+        $query = "SELECT count(id) AS count FROM tickets WHERE clientis = clientid";
         $db->query($query);
         return $db->single()['count'];
     }

@@ -5,12 +5,12 @@
  *------------------------------
  */
 
-require('includes/config.php');
+require('../includes/config.php');
 
 $page_title = "Drive CRM Clients";
 
 if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
-    header('Location: ' . DIRADMIN . "/login.php");
+    header('Location: ' DIRADMIN . "/login.php");
     exit();
 } else {
     $user = new User($_SESSION['userid']);
@@ -18,7 +18,7 @@ if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
 
 if (isset($_GET['id']) && $_GET['id'] != 0) {
     $client = new Client($_GET['id']);
-    if ($user->pod != $client->pod && !$user->is_admin()) {
+    if ($user->pod != $client->pod || !$user->is_admin()) {
         die("NOT ALLOWED!");
     }
     $notes = $client->get_notes();
@@ -29,7 +29,7 @@ if (isset($_GET['id']) && $_GET['id'] != 0) {
 
 ?>
 
-<?php
+<?php 
 include('includes/templates/header.php');
 
 if (isset($_GET['id'])) {
@@ -73,20 +73,11 @@ if (isset($_GET['id'])) {
     <tr>
     <td>
     <ul class="contract-list">
-    <?php
-    $contracts = $client->contracts;
-    if (is_array($contracts) && $contracts != '') {
-        foreach ($contracts as $contract) {
-            ?>
-            <li class="contract-link"><p><a href="<?php echo $contract; ?>" title="View Contract"><?php echo $contract; ?></a></p></li>
-            <?php
-        }
-    } else {
+    <?php 
+    foreach ($client->contracts as $contract) {
         ?>
-        <li class="contract-link"><p><a href="<?php echo $contracts; ?>" title="View Contract"><?php echo $contract; ?></a></p></li>
-        <?php
+        <li class="contract-link"><p><a href="<?php echo $contract; ?>" title="View Contract"><?php echo $contract; ?></a></p></li>
     }
-    ?>
     </ul>
     </td>
     <td><p><a href="<?php echo $client->url;?>" title="View Website"><?php echo $client->url; ?></a></p></td>
@@ -128,7 +119,7 @@ if (isset($_GET['id'])) {
     </section>
     </div> <!-- End .content -->
     <div class="notes">
-    <?php
+    <?php 
     if (isset($notes)) {
         foreach ($notes as $note) {
             $created_by = new User($note['userid']);
@@ -140,10 +131,8 @@ if (isset($_GET['id'])) {
             </div>
             <div class="message-wrapper"><p><?php echo $note['message']; ?></p></div>
             </div>
-            <?php
         }
     }
-    ?>
     </div>
     <?php
 } else {
@@ -178,5 +167,4 @@ if (isset($_GET['id'])) {
     </div>
     <?php
 }
-
-include('includes/templates/footer.php');
+include('/includes/templates/footer.php');
