@@ -4,6 +4,11 @@
  *  Author: Bret Wagner
  *------------------------------
  */
+if ($_GET['logout'] && $_GET['logout'] == "logout") {
+    unset($_SESSION['authorized']);
+    unset($_SESSION['userid']);
+    header('Location: ' . DIRADMIN . '/login.php');
+}
 session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
