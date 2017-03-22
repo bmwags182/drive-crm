@@ -4,7 +4,7 @@
  *  Author: Bret Wagner
  *------------------------------
  */
-if ($_GET['logout'] && $_GET['logout'] == "logout") {
+if ($_GET['logout'] && $_GET['logout'] == "true") {
     unset($_SESSION['authorized']);
     unset($_SESSION['userid']);
     header('Location: ' . DIRADMIN . '/login.php');
@@ -28,3 +28,5 @@ if (isset($page_title) && $page_title != '') {
 <body>
 <?php include('navigation.php');
 ?>
+<!-- start after navigation -->
+
