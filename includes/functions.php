@@ -74,4 +74,12 @@ function original_user($email, $username) {
         If the username or email already exists in the databse this
         function will return false.
      */
+    $db = new Database();
+    $query = "SELECT * FROM users WHERE UPPER('email') = UPPER(:email) OR UPPER('username') = UPPER(:username)";
+    $db->query($query);
+    $db->bind(':email', $email);
+    $db->bind(':username', $username);
+    if ($db->row_count() != 0) {
+        $SESSION['error']
+    }
 }
