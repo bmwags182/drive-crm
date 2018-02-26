@@ -10,7 +10,7 @@ require('../includes/config.php');
 $page_title = "Drive CRM Clients";
 
 if (!$_SESSION['userid'] || $_SESSION['userid'] == '') {
-    header('Location: ' DIRADMIN . "/login.php");
+    header('Location: ' . DIRADMIN . "/login.php");
     exit();
 } else {
     $user = new User($_SESSION['userid']);
@@ -74,6 +74,7 @@ if (isset($_GET['id'])) {
                             <td>
                                 <ul class="contract-list">
 <?php 
+}
 foreach ($client->contracts as $contract) {
     ?>
     <li class="contract-link"><p><a href="<?php echo $contract; ?>" title="View Contract"><?php echo $contract; ?></a></p></li>
@@ -120,6 +121,9 @@ foreach ($client->contracts as $contract) {
             </div>
         </section>
     </div> <!-- End .content -->
+<?php 
+
+?>
     <div class="notes">
 <?php 
 if (isset($notes)) {
@@ -174,3 +178,4 @@ if (isset($notes)) {
 <?php
 }
 include('/includes/templates/footer.php');
+//*/

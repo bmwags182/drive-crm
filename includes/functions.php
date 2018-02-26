@@ -80,6 +80,6 @@ function original_user($email, $username) {
     $db->bind(':email', $email);
     $db->bind(':username', $username);
     if ($db->row_count() != 0) {
-        $SESSION['error']
+        $SESSION['error'];
     }
 }
