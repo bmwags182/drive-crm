@@ -1,0 +1,106 @@
+.page {
+  margin: 0;
+}
+.col-span-2 {
+  width: calc(2*(99.999%/12));
+  display: inline-block;
+}
+.col-span-10 {
+  width: calc(10*(99.999%/12));
+  display: inline-block;
+}
+.inner-row {
+  display: flex;
+  align-items: center;
+}
+.main-nav ul li {
+  display: inline;
+  padding: 1em 2em;
+}
+.main-nav {
+  float: right;
+  margin-bottom: .5em;
+  /*! border-bottom: 1px solid #222; */
+}
+.nav-wrapper {
+  border-bottom: 1px solid #222;
+  width: 100%;
+}
+.wrapper {
+  padding: 0 .25em;
+}
+.nav-wrapper {
+  background-color: green;
+}
+.flex-container {
+  display: flex;
+}
+.vert-center {
+  align-items: center;
+}
+.horz-center .floating-card {
+  /*! align-self: center; */
+  display: block;
+  margin: 3em auto;
+  padding: 1em 2em;
+}
+.floating-card.shadow {
+  border: 1px solid #ddd;
+  box-shadow: 0 3px 6px #ccc;
+  padding: 0 1em 0 1em;
+  width: 250px;
+}
+.round-corner {
+  border-radius: 5px;
+}
+body {
+  background-color:  #f1f1f1;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.floating-card {
+  background-color: #fff;
+}
+.form-wrapper .form-body {
+  margin-bottom: 1em;
+}
+.form-wrapper .form-body .input-container {
+  margin-bottom: 1em;
+}
+.form-wrapper .form-footer {
+  margin-top: 2em;
+}
+.form-wrapper .login-form .form-footer .submit-container {
+  float: right;
+}
+.form-wrapper .login-form {
+  width: 200px;
+}
+.form-wrapper .login-form, .form-wrapper form .form-body .input-container input {
+  width: 100%;
+}
+.page-wrapper {
+  height: 100%;
+}
+.page-login .page-wrapper {
+  display: flex;
+  align-items: center;
+}
+.page-login .align-center {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+.form-header .login-title {
+  text-align: center;
+}
+.page-login .vert-center {
+  margin-top: -6em;
+}
+.cearfix {
+  clear: both;
+}
+.nav-wrapper a {
+  color: aliceblue;
+}

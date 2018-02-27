@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Page</title>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body class="page page-login ">
+	<div class="nav-wrapper wrapper">
+		<div class="container nav-container">
+			<div class="row">
+				<div class="inner-row">
+					<div class="col1 col-span-2">
+						<div class="wrapper logo-wrapper">
+							<a href="/" title="Product Homepage"><img src="/images/logo.png" alt="product logo"></a>
+						</div>
+					</div>
+					<div class="col2 col-span-10">
+						<div class="wrapper main-nav">
+							<ul>
+								<li class="nav-item"><a href="/">Home</a></li>
+								<li class="nav-item"><a href="#">Tickets</a></li>
+								<li class="nav-item"><a href="#">Passwords</a></li>
+								<li class="nav-item account-link"><a href="#">Account</a></li>
+							</ul>
+						</div>
+					</div>
+				</div> <!-- inner row -->
+			</div> <!-- row -->
+		</div>
+	</div> <!-- End Navigation -->
+	<div class="wrapper page-wrapper">
+		<div class="align-center">
+			<div class="container flex-container vert-center">
+				<div class="floating-card round-corner shadow medium-card">
+					<div class="form-header">
+						<h1 class="login-title">Welcome</h1>
+					</div>
+					<div class="wrapper form-wrapper">
+						<form class="login-form" method="post" action="/includes/no-action.php">
+							<div class="form-body">
+								<div class="input-container">
+									<label for="username">Username</label><br/>
+									<input type="text" name="username" placeholder="Username or Email" />
+								</div>
+								<div class="input-container">
+									<label for="password">Password</label><br/>
+									<input type="password" name="password" placeholder="Password" />
+								</div>
+							</div>
+							<div class="form-footer">
+								<div class="submit-container">
+									<input type="submit" value="Submit" />
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="clearfix">
+						&nbsp;
+					</div>
+					<div class="login-post-footer">
+						<p style="text-align: center;"><a href="#" title="Register">Register</a> <a href="#" title="reset password">Forgot Password?</a></p>
+					</div>
+				</div> <!-- End Card -->
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="footer-outer">
+			<div class="row">
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="wrapper copyright-wrapper">
+				<p class="copyright">&copy;2018 - Bret Wagner</p>
+			</div>
+		</div>
+	</footer>
+</body>
