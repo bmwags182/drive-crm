@@ -83,8 +83,20 @@ body {
 .page-wrapper {
   height: 100%;
 }
+.page-login .page-wrapper {
+  display: flex;
+  align-items: center;
+}
+.page-login .align-center {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
 .form-header .login-title {
   text-align: center;
+}
+.page-login .vert-center {
+  margin-top: -6em;
 }
 .cearfix {
   clear: both;
