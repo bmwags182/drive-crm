@@ -33,7 +33,93 @@
 			<div class="wrapper title-wrapper">
 				<h1 class="page-title">New Ticket</h1>
 			</div>
-			
+			<div class="wrapper form-wrapper">
+				<form class="ticket-form">
+					<div class="form-body">
+						<div class="row flex-row admin-section">
+							<div class="col-span-4">
+								<div class="input-container">
+									<label for="client-name">Client Name</label><br/>
+									<input type="text" name="client-name" />
+								</div>
+							</div>
+							<div class="col-span-4">
+								<div class="input-container">
+									<label for="drive-pod">Pod Number</label><br/>
+									<select name="drive-pod">
+										<option value="stl-pod-1">Pod 1 - St. Louis</option>
+										<option value="stl-pod-2">Pod 2 - St. Louis</option>
+										<option value="stl-pod-3">Pod 3 - St. Louis</option>
+										<option value="nash-pod-1">Pod 1 - Nashville</option>
+										<option value="nash-pod-2">Pod 2 - Nashville</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-span-4">
+								<div class="input-container">
+									<label for="assigned">Assigned to</label><br/>
+									<select name="assigned">
+										<option value="Alex">Alex</option>
+										<option value="Bret">Bret</option>
+										<option value="Emmy">Emmy</option>
+										<option value="John">John</option>
+										<option value="Zach">Zach</option>
+									</select>
+								</div>
+							</div>
+						</div> <!-- End Row -->
+						<div class="row flex-row">
+							<div class="col-span-4">
+								<div class="input-container">
+									<label for="created">Created by</label><br/>
+									<input type="text" disabled value="Created By Name" />
+								</div>
+							</div>
+							<div class="col-span-4">
+								<div class="input-container">
+									<label for="status">Status</label><br/>
+									<select name="status">
+										<option value="in-queue">In Queue</option>
+										<option value="waiting-client">Waiting on Client</option>
+										<option value="working">In Progress</option>
+										<option value="review">Awaiting Approval</option>
+										<option value="closed">Closed</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-span-4">
+								<div class="input-container">
+									<label for="due-date">Due Date</label><br/>
+									<input type="date" name="due-date" />
+								</div>
+							</div>
+						</div> <!-- End Row -->
+						<div class="row">
+							<div class="col-span-12">
+								<div class="input-container">
+									<label for="ticket-title">Ticket Title</label><br/>
+									<input type="text" name="ticket-title" />
+								</div>
+							</div>
+						</div> <!-- End Row -->
+						<div class="row">
+							<div class="col-span-12">
+								<label for="ticket-description">Ticket Description</label><br/>
+								<textarea name="ticket-description">Enter instructions or details here.</textarea>
+							</div>
+						</div> <!-- End Row -->
+					</div>
+					<div class="form-footer">
+						<div class="row">
+							<div class="col-span-12">
+								<div class="input-container">
+									<input type="submit" value="Update" />
+								</div>
+							</div>
+						</div> <!-- End Row -->
+					</div>
+				</form>
+			</div>
 
 		</div><!-- End Content -->
 	</div>
