@@ -1,6 +1,13 @@
 .page {
   margin: 0;
 }
+.page-wrapper {
+  display:flex;
+  justify-content: center;
+}
+.page-wrapper #main-content {
+  max-width: 1200px;
+}
 .col-span-2 {
   flex-grow: 1;
 }
