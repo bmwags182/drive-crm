@@ -2,16 +2,16 @@
   margin: 0;
 }
 .col-span-2 {
-  width: calc(2*(99.999%/12));
-  display: inline-block;
+  flex-grow: 1;
 }
 .col-span-10 {
-  width: calc(10*(99.999%/12));
-  display: inline-block;
+  flex-grow: 10;
 }
 .inner-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 .main-nav ul li {
   display: inline;
@@ -71,17 +71,8 @@ body {
 .form-wrapper .form-footer {
   margin-top: 2em;
 }
-.form-wrapper .login-form .form-footer .submit-container {
-  float: right;
-}
-.form-wrapper .login-form {
-  width: 200px;
-}
-.form-wrapper .login-form, .form-wrapper form .form-body .input-container input {
-  width: 100%;
-}
 .page-wrapper {
-  height: 100%;
+  height: 100vh;
 }
 .form-header .login-title {
   text-align: center;
@@ -91,4 +82,26 @@ body {
 }
 .nav-wrapper a {
   color: aliceblue;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: stretch;
+  align-items: baseline;
+}
+.row .col {
+  flex-grow: 1;
+  margin: 0 1em;
+  padding .5em
+}
+.form-wrapper .form-body .input-container input, .form-wrapper .form-body .input-container select, .form-wrapper .form-body .input-container textarea {
+  width: 100%;
+}
+.form-wrapper .form-body .input-container textarea {
+  min-height: 30vh;
+}
+.title-wrapper {
+  margin-left: 1em;
+  margin-right: 1em;
 }

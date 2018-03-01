@@ -30,20 +30,20 @@
 	</div> <!-- End Navigation -->
 	<div class="wrapper page-wrapper">
 		<div class="container content-container" id="main-content">
-			<div class="wrapper title-wrapper">
+			<div class="title-wrapper">
 				<h1 class="page-title">New Ticket</h1>
 			</div>
 			<div class="wrapper form-wrapper">
 				<form class="ticket-form" action="post" method="ticket-form.php">
 					<div class="form-body">
 						<div class="row flex-row admin-section">
-							<div class="col-span-4">
+							<div class="col">
 								<div class="input-container">
 									<label for="client-name">Client Name</label><br/>
 									<input type="text" name="client-name" />
 								</div>
 							</div>
-							<div class="col-span-4">
+							<div class="col">
 								<div class="input-container">
 									<label for="drive-pod">Pod Number</label><br/>
 									<select name="drive-pod">
@@ -55,7 +55,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-span-4">
+							<div class="col">
 								<div class="input-container">
 									<label for="assigned">Assigned to</label><br/>
 									<select name="assigned">
@@ -69,13 +69,13 @@
 							</div>
 						</div> <!-- End Row -->
 						<div class="row flex-row">
-							<div class="col-span-4">
+							<div class="col">
 								<div class="input-container">
 									<label for="created">Created by</label><br/>
 									<input type="text" disabled value="Created By Name" />
 								</div>
 							</div>
-							<div class="col-span-4">
+							<div class="col">
 								<div class="input-container">
 									<label for="status">Status</label><br/>
 									<select name="status">
@@ -87,7 +87,17 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-span-4">
+							<div class="col">
+								<div class="input-container">
+									<label for="ticket-category">Ticket Type</label><br/>
+									<select name="ticket-category">
+										<option value="maintenance">Maintenance</option>
+										<option value="migration">Migration</option>
+										<option value="edits">Site Edits</option>
+									</select>
+								</div>
+							</div>
+							<div class="col">
 								<div class="input-container">
 									<label for="due-date">Due Date</label><br/>
 									<input type="date" name="due-date" />
@@ -95,7 +105,7 @@
 							</div>
 						</div> <!-- End Row -->
 						<div class="row">
-							<div class="col-span-12">
+							<div class="col">
 								<div class="input-container">
 									<label for="ticket-title">Ticket Title</label><br/>
 									<input type="text" name="ticket-title" />
@@ -103,15 +113,17 @@
 							</div>
 						</div> <!-- End Row -->
 						<div class="row">
-							<div class="col-span-12">
-								<label for="ticket-description">Ticket Description</label><br/>
-								<textarea name="ticket-description">Enter instructions or details here.</textarea>
+							<div class="col">
+								<div class="input-container">
+									<label for="ticket-description">Ticket Description</label><br/>
+									<textarea name="ticket-description">Enter instructions or details here.</textarea>
+								</div>
 							</div>
 						</div> <!-- End Row -->
 					</div>
 					<div class="form-footer">
 						<div class="row">
-							<div class="col-span-12">
+							<div class="col">
 								<div class="input-container">
 									<input type="submit" value="Update" />
 								</div>
