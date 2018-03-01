@@ -112,3 +112,9 @@ body {
   margin-left: 1em;
   margin-right: 1em;
 }
+.nicEdit-main {
+  background-color: #fff;
+}
+.input-container.nic-editor-container div, .input-container.nid-editor-container .nicEdit-panelContain {
+  background-color: #fff !important;
+}
