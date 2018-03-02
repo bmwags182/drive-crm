@@ -6,6 +6,7 @@
   justify-content: center;
 }
 .page-wrapper #main-content {
+  width:100%;
   max-width: 1200px;
 }
 .col-span-2 {
@@ -62,7 +63,7 @@
 }
 body {
   background-color:  #f1f1f1;
-  height: 100vh;
+  /* height: 100vh; */
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -78,9 +79,9 @@ body {
 .form-wrapper .form-footer {
   margin-top: 2em;
 }
-.page-wrapper {
+/*.page-wrapper {
   height: 100vh;
-}
+}*/
 .form-header .login-title {
   text-align: center;
 }
@@ -102,7 +103,7 @@ body {
   margin: 0 1em;
   padding .5em
 }
-.form-wrapper .form-body .input-container input, .form-wrapper .form-body .input-container select, .form-wrapper .form-body .input-container textarea {
+.form-wrapper .form-body .input-container input:not([type="checkbox"]), .form-wrapper .form-body .input-container select, .form-wrapper .form-body .input-container textarea {
   width: 100%;
 }
 .form-wrapper .form-body .input-container textarea {
@@ -117,4 +118,10 @@ body {
 }
 .input-container.nic-editor-container div, .input-container.nid-editor-container .nicEdit-panelContain {
   background-color: #fff !important;
+}
+.form-subsection {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 2px 3px 6px #333;
+  padding: 0 2em;
 }
