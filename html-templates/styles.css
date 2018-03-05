@@ -1,11 +1,11 @@
 .page {
   margin: 0;
 }
-.page-wrapper {
+.content-wrapper {
   display:flex;
   justify-content: center;
 }
-.page-wrapper #main-content {
+.content-wrapper #main-content {
   width:100%;
   max-width: 1200px;
 }
@@ -79,7 +79,7 @@ body {
 .form-wrapper .form-footer {
   margin-top: 2em;
 }
-/*.page-wrapper {
+/*.content-wrapper {
   height: 100vh;
 }*/
 .form-header .login-title {
@@ -97,14 +97,21 @@ body {
   flex-wrap: wrap;
   align-content: stretch;
   align-items: baseline;
+  justify-content: space-between;
 }
 .row .col {
   flex-grow: 1;
-  margin: 0 1em;
-  padding .5em
+  padding: 0 1em;
+}
+.row .col2x {
+  flex-grow: 4;
+  padding: 0 1em;
 }
 .form-wrapper .form-body .input-container input:not([type="checkbox"]), .form-wrapper .form-body .input-container select, .form-wrapper .form-body .input-container textarea {
   width: 100%;
+}
+.form-wrapper .form-body .input-container input[type="text"] {
+  width: 99%;
 }
 .form-wrapper .form-body .input-container textarea {
   min-height: 30vh;

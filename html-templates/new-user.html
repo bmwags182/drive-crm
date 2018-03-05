@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>New Employee | Drive Social Ticket Tracker</title>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- WYSIWYG Editor Code -->
+<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+
+</head>
+<body class="page page-new-employee ">
+	<div class="nav-wrapper wrapper">
+		<div class="container nav-container">
+			<div class="row">
+				<div class="inner-row">
+					<div class="col1 col-span-2">
+						<div class="wrapper logo-wrapper">
+							<a href="/" title="Product Homepage"><img src="/images/logo.png" alt="product logo"></a>
+						</div>
+					</div>
+					<div class="col2 col-span-10">
+						<div class="wrapper main-nav">
+							<ul>
+								<li class="nav-item"><a href="/">Home</a></li>
+								<li class="nav-item"><a href="#">Tickets</a></li>
+								<li class="nav-item"><a href="#">Clients</a></li>
+								<li class="nav-item account-link"><a href="#">Account</a></li>
+							</ul>
+						</div>
+					</div>
+				</div> <!-- inner row -->
+			</div> <!-- row -->
+		</div>
+	</div> <!-- End Navigation -->
+	<div class="wrapper content-wrapper">
+		<div class="container content-container" id="main-content">
+			<div class="title-wrapper">
+				<h1 class="page-title">New User</h1>
+			</div>
+			<div class="wrapper form-wrapper">
+				<form class="user-form" action="post" method="user-form.php">
+					<div class="form-body">
+						<div class="row">
+							<div class="col">
+								<div class="input-container">
+									<label for="fname">First Name</label><br/>
+									<input name="fname" type="text" />
+								</div>
+							</div>
+							<div class="col">
+								<div class="input-container">
+									<label for="lname" type="text" >Last Name</label><br/>
+									<input name="lname" type="text" />
+								</div>
+							</div>
+							<div class="col2x">
+								<div class="input-container">
+									<label for="email">Email</label><br/>
+									<input name="email" type="text" />
+								</div>
+							</div>
+						</div> <!-- End Row -->
+						<div class="row">
+							<div class="col">
+								<div class="input-container">
+									<label for="position">Position</label><br/>
+									<select name="position">
+										<option value="intern">Intern</option>
+										<option value="designer">Designer</option>
+										<option value="CM">Community Manager</option>
+										<option value="CW">Copywriter</option>
+										<option value="AM">Analytic Manager</option>
+										<option value="PM">Project Manager</option>
+										<option value="AE">Account Executive</option>
+									</select>
+								</div>
+							</div>
+							<div class="col">
+								<div class="input-container">
+									<label for="pod">Pod</label><br/>
+									<select name="pod">
+										<option value="stl-pod1">St. Louis - Pod 1</option>
+										<option value="stl-pod2">St. Louis - Pod 2</option>
+										<option value="stl-pod3">St. Louis - Pod 3</option>
+										<option value="nash-pod1">Nashville - Pod 1 </option>
+										<option value="nash-pod2">Nashville - Pod 2</option>
+										<option value="nash-pod3">Nashville - Pod 3</option>
+									</select>
+								</div>
+							</div>
+						</div> <!-- End Row -->
+					</div>
+					<div class="form-footer">
+						<div class="row">
+							<div class="col">
+								<div class="input-container">
+									<input type="submit" value="Update" />
+								</div>
+							</div>
+						</div> <!-- End Row -->
+					</div>
+				</form>
+			</div>
+
+		</div><!-- End Content -->
+	</div>
+	<footer>
+		<div class="footer-outer">
+			<div class="row">
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="wrapper copyright-wrapper">
+				<p class="copyright">&copy;2018 - Bret Wagner</p>
+			</div>
+		</div>
+	</footer>
+</body>
